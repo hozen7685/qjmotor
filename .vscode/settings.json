@@ -1,9 +1,0 @@
-{
-    "files.associations": {
-        "themes.h": "c",
-        "bracket_rect.h": "c",
-        "stdio.h": "c",
-        "lv_version.h": "c",
-        "lv_conf.h": "c"
-    }
-}
