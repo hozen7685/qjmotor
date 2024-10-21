@@ -22,7 +22,6 @@ void init_themes(void)
     lv_style_set_outline_width(&cmn_style, 0);
     lv_style_set_pad_all(&cmn_style, 0);
     lv_style_set_radius(&cmn_style, 0);
-    // lv_style_set_text_font(&cmn_style, &lv_font_simsun_16_cjk);
     lv_style_set_text_align(&cmn_style, LV_TEXT_ALIGN_CENTER);
     lv_style_set_bg_color(&cmn_style, lv_color_hex(get_color(WHITE_C)));
     lv_style_set_border_color(&cmn_style, lv_color_hex(get_color(WHITE_C)));
