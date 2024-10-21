@@ -32,9 +32,6 @@ lv_obj_t * top_info_bar(lv_obj_t *parent)
     icon_bluetooth = lv_label_create(icon_box);
     lv_obj_set_size(icon_bluetooth, 32, 32);
     lv_label_set_text(icon_bluetooth, LV_SYMBOL_BLUETOOTH);
-    // icon_4G = lv_label_create(icon_box);
-    // lv_obj_set_size(icon_4G, 48, 48);
-    // lv_label_set_text(icon_4G, LV_SYMBOL_)
     icon_battery = lv_label_create(icon_box);
     lv_obj_set_size(icon_battery, 32, 32);
     lv_label_set_text(icon_battery, LV_SYMBOL_BATTERY_EMPTY);

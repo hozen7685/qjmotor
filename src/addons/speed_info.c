@@ -22,7 +22,7 @@ lv_obj_t * speed_info_zone(lv_obj_t *parent)
     lv_obj_set_flex_align(speed_box, LV_FLEX_ALIGN_END, LV_FLEX_ALIGN_END, LV_FLEX_ALIGN_END);
     //速度label
     speed_lable = lv_label_create(speed_box);
-    lv_obj_set_size(speed_lable, lv_pct(40), lv_pct(80));    
+    lv_obj_set_size(speed_lable, lv_pct(40), lv_pct(80));
     lv_obj_set_style_pad_top(speed_lable, 75, 0);
     lv_obj_set_style_text_font(speed_lable, &lv_font_montserrat_48, 0);
     lv_obj_set_style_text_align(speed_lable, LV_TEXT_ALIGN_RIGHT, 0);
