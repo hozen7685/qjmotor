@@ -3,10 +3,15 @@
 #include "../themes/themes.h"
 
 static lv_style_t section_tick_style;
+static lv_obj_t * gasoline_bar;
+static lv_obj_t * water_bar;
 
-static void set_temp(void * bar, int32_t temp)
-{
-    lv_bar_set_value(bar, temp, LV_ANIM_ON);
+static void update_gasoline_cb(lv_timer_t *timer) {
+    lv_bar_set_value(lv_obj_get_child(gasoline_bar, 0), rand()%100, LV_ANIM_ON);
+}
+
+static void update_water_cb(lv_timer_t *timer) {
+    lv_bar_set_value(lv_obj_get_child(water_bar, 0), rand()%100, LV_ANIM_ON);
 }
 
 static lv_obj_t * create_scale(lv_obj_t *parent)
@@ -47,15 +52,6 @@ static lv_obj_t * create_scale(lv_obj_t *parent)
     lv_scale_section_set_range(section, 10, 90);
     lv_scale_section_set_style(section, LV_PART_INDICATOR, &section_tick_style);
 
-    lv_anim_t a;
-    lv_anim_init(&a);
-    lv_anim_set_exec_cb(&a, set_temp);
-    lv_anim_set_duration(&a, 3000);
-    lv_anim_set_playback_duration(&a, 3000);
-    lv_anim_set_var(&a, bar);
-    lv_anim_set_values(&a, 0, 100);
-    lv_anim_set_repeat_count(&a, LV_ANIM_REPEAT_INFINITE);
-    lv_anim_start(&a);
     return bar_base;
 }
 
@@ -81,6 +77,8 @@ lv_obj_t * water_scale(lv_obj_t *parent)
     lv_obj_align(gasoline_icon, LV_ALIGN_TOP_LEFT, 0, 0);
     lv_obj_align(water_icon, LV_ALIGN_TOP_LEFT, 0, 0);
 
-    lv_obj_t * gasoline_bar = create_scale(gasoline_work_obj);
-    lv_obj_t * water_bar = create_scale(water_work_obj);
+    gasoline_bar = create_scale(gasoline_work_obj);
+    water_bar = create_scale(water_work_obj);
+    lv_timer_create(update_gasoline_cb, 1000, NULL);
+    lv_timer_create(update_water_cb, 1500, NULL);
 }

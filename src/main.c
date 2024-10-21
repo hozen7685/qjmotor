@@ -55,6 +55,7 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR szCmdLi
     set_hour_rule(H12);
 
     main_view();
+    // menu_lv_1_page();
 
     while(1) {
         /* Periodically call the lv_task handler.
