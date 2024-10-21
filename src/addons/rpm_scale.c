@@ -6,6 +6,8 @@ static lv_style_t bar_style;
 static lv_style_t arc_style;
 static lv_obj_t * bar_hor;
 static lv_obj_t * arc;
+static lv_span_t * gear;
+static lv_span_t * gear_sub;
 static lv_style_t bar_scale_style;
 static lv_style_t arc_scale_style;
 static const char * bar_labels[] = {"0", "1", "2", "3", "4", "5", "6", "7", NULL};
@@ -42,6 +44,8 @@ static void update_rpm_cb(lv_timer_t *timer) {
         lv_style_set_arc_color(&arc_style, lv_color_hex(get_color(BLACK_C)));
         // set_theme(BRIGHT);
     }
+    lv_span_set_text(gear, "--\n");
+    lv_span_set_text(gear_sub, "GEAR");
 }
 
 lv_obj_t* rpm_scale(lv_obj_t *parent)
@@ -98,6 +102,24 @@ lv_obj_t* rpm_scale(lv_obj_t *parent)
     lv_obj_set_style_arc_color(arc, lv_color_hex(get_color(GRAY_C)), LV_PART_MAIN);
     lv_obj_add_style(arc, &arc_style, LV_PART_INDICATOR);
 
+    lv_obj_t *gear_spans = lv_spangroup_create(parent);
+    lv_obj_set_size(gear_spans, 50, 50);
+    lv_obj_align_to(gear_spans, arc, LV_ALIGN_CENTER, 25, 25);
+    // lv_obj_set_style_pad_all(gear_spans, 4, 0);
+    // lv_obj_set_style_bg_color(gear_spans, lv_color_hex(0xf3f3f3), 0);
+    lv_obj_set_style_border_width(gear_spans, 0, 0);
+
+    lv_spangroup_set_align(gear_spans, LV_TEXT_ALIGN_CENTER);
+    lv_spangroup_set_overflow(gear_spans, LV_SPAN_OVERFLOW_CLIP);
+    lv_spangroup_set_mode(gear_spans, LV_SPAN_MODE_FIXED);
+
+    gear = lv_spangroup_new_span(gear_spans);
+    lv_style_set_text_color(lv_span_get_style(gear), lv_color_hex(0x000000));
+    lv_style_set_text_font(lv_span_get_style(gear),  &lv_font_montserrat_28);
+    gear_sub = lv_spangroup_new_span(gear_spans);
+    lv_style_set_text_color(lv_span_get_style(gear_sub), lv_color_hex(0x000000));
+    lv_style_set_text_font(lv_span_get_style(gear_sub),  &lv_font_montserrat_14);
+
     lv_obj_t * arc_scale = lv_scale_create(parent);
     lv_obj_set_size(arc_scale, 390, 390);
     lv_scale_set_label_show(arc_scale, true);
@@ -139,6 +161,6 @@ lv_obj_t* rpm_scale(lv_obj_t *parent)
     lv_scale_section_set_style(section, LV_PART_INDICATOR, &section_label_style);
     lv_scale_section_set_style(section, LV_PART_MAIN, &section_main_line_style);
 
-    lv_timer_create(update_rpm_cb, 1000, NULL);
+    lv_timer_create(update_rpm_cb, 500, NULL);
     return NULL;
 }
