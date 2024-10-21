@@ -28,7 +28,6 @@
 /**********************
  *  STATIC VARIABLES
  **********************/
-//static const wchar_t * title = L"LVGL port Windows CodeBlocks.      https://lvgl.io | https://docs.lvgl.io";
 static const wchar_t * title = L"QJMOTOR";
 
 /**********************
