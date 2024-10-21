@@ -1,0 +1,7 @@
+{
+    "files.associations": {
+        "themes.h": "c",
+        "bracket_rect.h": "c",
+        "stdio.h": "c"
+    }
+}

@@ -1,0 +1,3 @@
+C:/Users/hz/Downloads/qjmotor/build/CMakeFiles/qjmotor.dir
+C:/Users/hz/Downloads/qjmotor/build/CMakeFiles/edit_cache.dir
+C:/Users/hz/Downloads/qjmotor/build/CMakeFiles/rebuild_cache.dir
