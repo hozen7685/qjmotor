@@ -2,7 +2,7 @@
 #include "src/themes/lv_theme_private.h"
 #include "src/font/lv_font.h"
 
-int *th_color_list = &s_palette;
+const int *th_color_list = s_palette;
 lang_t g_lang = LANG_CH;
 hour_rule_t g_hour_rule = H12;
 
@@ -40,13 +40,13 @@ void set_theme(themes_t theme)
     switch (theme)
     {
     case BRIGHT:
-        th_color_list = &s_palette;
+        th_color_list = s_palette;
         break;
     case DARK:
-        th_color_list = &s_palette_r;
+        th_color_list = s_palette_r;
         break;
     case WARN:
-        th_color_list = &s_palette_w;
+        th_color_list = s_palette_w;
         break;
     default:
         break;

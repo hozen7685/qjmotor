@@ -60,6 +60,11 @@ lv_obj_t* rpm_scale(lv_obj_t *parent)
     lv_obj_set_style_bg_color(bar_hor, lv_color_hex(get_color(GRAY_C)), LV_PART_MAIN);
     lv_obj_set_style_bg_opa(bar_hor, 255, LV_PART_MAIN);
 
+    lv_obj_t * bar_remark = lv_label_create(parent);
+    lv_obj_set_size(bar_remark, 100, 20);
+    lv_obj_align_to(bar_remark, bar_hor, LV_ALIGN_TOP_LEFT, 0, 20);
+    lv_label_set_text(bar_remark, "RPM x1000");
+
     lv_obj_t * bar_scale = lv_scale_create(parent);
     lv_obj_set_size(bar_scale, 508, 30);
     lv_scale_set_label_show(bar_scale, true);

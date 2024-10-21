@@ -50,17 +50,17 @@ lv_obj_t * top_info_bar(lv_obj_t *parent)
     //模式标签
     lv_obj_t * mode_label = lv_label_create(bar);
     lv_obj_set_size(mode_label, 64, lv_pct(100));
-    lv_obj_align_to(mode_label, time_box, LV_ALIGN_OUT_LEFT_BOTTOM, -80, 0);
+    lv_obj_align_to(mode_label, icon_box, LV_ALIGN_TOP_LEFT, 128, 0);
     lv_label_set_text(mode_label, get_text_byid(T_TOPBAR_MODE));
     //时间label
     time_lable_hour = lv_label_create(time_box);
-    lv_obj_set_size(time_lable_hour, 16, lv_pct(100));
+    lv_obj_set_size(time_lable_hour, 20, lv_pct(100));
     time_lable_mid = lv_label_create(time_box);
     lv_obj_set_size(time_lable_mid, 8, lv_pct(100));
     time_lable_min = lv_label_create(time_box);
-    lv_obj_set_size(time_lable_min, 16, lv_pct(100));
+    lv_obj_set_size(time_lable_min, 20, lv_pct(100));
     time_lable_rear = lv_label_create(time_box);
-    lv_obj_set_size(time_lable_rear, 24, lv_pct(100));
+    lv_obj_set_size(time_lable_rear, 32, lv_pct(100));
     if(H12 == g_hour_rule) {
         lv_obj_remove_flag(time_lable_rear, LV_OBJ_FLAG_HIDDEN);
     } else {
