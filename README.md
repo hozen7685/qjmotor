@@ -1,2 +1,1 @@
-"# MyCalculator" 
 "# qjmotor" 
