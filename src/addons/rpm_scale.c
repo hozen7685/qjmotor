@@ -30,7 +30,7 @@ static void update_rpm_cb(lv_timer_t *timer) {
     } else if(rpm_value <= ARC_MAX) {
         lv_bar_set_value(bar_hor, BAR_MAX, LV_ANIM_ON);
         int angle = (rpm_value - BAR_MAX) * 100 / (ARC_MAX - BAR_MAX);
-        lv_arc_set_value(arc, (rpm_value - BAR_MAX) * 100 / 5000);
+        lv_arc_set_value(arc, (rpm_value - BAR_MAX) / 50);
     } else {
         lv_bar_set_value(bar_hor, BAR_MAX, LV_ANIM_ON);
         lv_arc_set_value(arc, 100);

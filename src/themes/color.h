@@ -10,6 +10,7 @@ typedef enum {
     RED_C,
     GRAY_C,
     YELLOW_C,
+    ORANGE_C,
     COLOR_MAX
 } color_t;
 

@@ -5,15 +5,17 @@
 #include "../themes/themes.h"
 #include "../addons/rpm_scale.h"
 #include "../addons/water_scale.h"
+#include "../addons/gasoline_scale.h"
 #include <stdio.h>
 
-static char roller_text[ROLLER_TEXT_LEN] = {0};
+// static char roller_text[ROLLER_TEXT_LEN] = {0};
+const char *roller_text = "TOT :0.0km\nTRIPA :0.0km\nTRIPB :0.0km";
 static lv_obj_t * mileage_roller = NULL;
-static void update_mileage_cb(lv_timer_t *timer) {
-    sprintf(roller_text, "TOT :%.1fkm\nTRIPA :%.1fkm\nTRIPB :%.1fkm",
-     rand()%100, rand()%100, rand()%100);
-    lv_roller_set_options(mileage_roller, roller_text, LV_ROLLER_MODE_INFINITE);
-}
+// static void update_mileage_cb(lv_timer_t *timer) {
+//     sprintf(roller_text, "TOT :%.1fkm\nTRIPA :%.1fkm\nTRIPB :%.1fkm",
+//      rand()%100, rand()%100, rand()%100);
+//     lv_roller_set_options(mileage_roller, roller_text, LV_ROLLER_MODE_INFINITE);
+// }
 
 void main_view(void)
 {
@@ -25,6 +27,7 @@ void main_view(void)
     speed_info_zone(obj);
     rpm_scale(obj);
 /* 油表 水温*/
+    gasoline_scale(obj);
     water_scale(obj);
 /* 公里数 */
     lv_obj_t * mileage_canvas = lv_obj_create(obj);
@@ -40,7 +43,7 @@ void main_view(void)
     lv_obj_set_style_bg_color(mileage_roller, lv_color_hex(get_color(WHITE_C)), LV_PART_SELECTED);
     lv_obj_set_style_text_color(mileage_roller, lv_color_hex(get_color(BLACK_C)), LV_PART_SELECTED);
     lv_obj_align(mileage_roller, LV_ALIGN_CENTER, 0, 0);
-    // lv_roller_set_options(mileage_roller, roller_text, LV_ROLLER_MODE_INFINITE);
+    lv_roller_set_options(mileage_roller, roller_text, LV_ROLLER_MODE_INFINITE);
     lv_roller_set_visible_row_count(mileage_roller, 1);
     // lv_obj_add_event_cb(mileage_roller, event_handler, LV_EVENT_ALL, NULL);
     // lv_timer_create(update_mileage_cb, 10000, NULL);
