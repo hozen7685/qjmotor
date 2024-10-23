@@ -33,19 +33,23 @@ static const wchar_t * title = L"QJMOTOR";
 /**********************
  *      MACROS
  **********************/
-
+#define WINDOWS 0
 /**********************
  *   GLOBAL FUNCTIONS
  **********************/
-int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR szCmdLine, int nCmdShow)
+int main(int argc, char const *argv[])
 {
     /*Initialize LVGL*/
     lv_init();
 
+#if WINDOWS
     /*Initialize the HAL for LVGL*/
     lv_display_t * display = lv_windows_create_display(title, 1024, 600, 100, FALSE, FALSE);
     lv_windows_acquire_pointer_indev(display);
-
+#else
+    lv_display_t * disp = lv_sdl_window_create(1024, 600);
+    lv_display_set_default(disp);
+#endif
     /*Output prompt information to the console, you can also use printf() to print directly*/
     LV_LOG_USER("LVGL initialization completed!");
 

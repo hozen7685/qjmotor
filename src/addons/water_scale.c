@@ -9,7 +9,7 @@ static lv_style_t section_tick_style_B;
 // srction range 10 20 40 60 80 90
 static int mode = 0;
 
-const static void (*f_mode_creat[WAT_MODE_MAX])(lv_obj_t *) = {
+static void (*f_mode_creat[WAT_MODE_MAX])(lv_obj_t *) = {
     create_mode_1, create_mode_2,
     // create_mode_3, create_mode_4,
 };
@@ -36,7 +36,7 @@ static lv_obj_t * add_scale_base(lv_obj_t *parent)
     return scale;
 }
 
-lv_obj_t * water_scale(lv_obj_t *parent)
+void water_scale(lv_obj_t *parent)
 {
     /* Add a section */
     lv_style_init(&section_tick_style_B);

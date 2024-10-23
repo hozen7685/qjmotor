@@ -19,7 +19,7 @@ static void create_mode_1(lv_obj_t *parent);
 static void create_mode_2(lv_obj_t *parent);
 static void create_mode_3(lv_obj_t *parent);
 static void create_mode_4(lv_obj_t *parent);
-extern lv_obj_t * gasoline_scale(lv_obj_t *parent);
+extern void gasoline_scale(lv_obj_t *parent);
 
 #ifdef __cplusplus
 } /* extern "C" */
