@@ -28,7 +28,7 @@
 /**********************
  *  STATIC VARIABLES
  **********************/
-static const wchar_t * title = L"QJMOTOR";
+static const char * title = "QJMOTOR";
 
 /**********************
  *      MACROS
@@ -48,7 +48,10 @@ int main(int argc, char const *argv[])
     lv_windows_acquire_pointer_indev(display);
 #else
     lv_display_t * disp = lv_sdl_window_create(1024, 600);
+    lv_sdl_window_set_title(disp, title);
     lv_display_set_default(disp);
+    lv_indev_t * mouse = lv_sdl_mouse_create();
+    lv_indev_set_display(mouse, disp);
 #endif
     /*Output prompt information to the console, you can also use printf() to print directly*/
     LV_LOG_USER("LVGL initialization completed!");

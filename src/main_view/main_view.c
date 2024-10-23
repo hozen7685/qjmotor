@@ -22,6 +22,7 @@ void main_view(void)
     lv_obj_t * obj = lv_obj_create(lv_screen_active());
     lv_obj_set_size(obj, 800, 480);
     lv_obj_set_style_pad_left(obj, 16, 0);
+    lv_obj_center(obj);
 
     top_info_bar(obj);
     speed_info_zone(obj);

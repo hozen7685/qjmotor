@@ -35,15 +35,19 @@ static void update_rpm_cb(lv_timer_t *timer) {
         lv_bar_set_value(bar_hor, BAR_MAX, LV_ANIM_ON);
         lv_arc_set_value(arc, 100);
     }
+#if 1   //变色警告
     if(rpm_value >= RPM_WARN) {
         lv_obj_set_style_bg_color(bar_hor, lv_color_hex(get_color(YELLOW_C)), LV_PART_INDICATOR);
         lv_style_set_arc_color(&arc_style, lv_color_hex(get_color(YELLOW_C)));
+        lv_obj_invalidate(arc);
         // set_theme(WARN);
     } else {
         lv_obj_set_style_bg_color(bar_hor, lv_color_hex(get_color(BLACK_C)), LV_PART_INDICATOR);
         lv_style_set_arc_color(&arc_style, lv_color_hex(get_color(BLACK_C)));
+        lv_obj_invalidate(arc);
         // set_theme(BRIGHT);
     }
+#endif
     lv_span_set_text(gear, "--\n");
     lv_span_set_text(gear_sub, "GEAR");
 }
@@ -62,6 +66,7 @@ lv_obj_t* rpm_scale(lv_obj_t *parent)
     lv_obj_set_style_radius(bar_hor, 0, LV_PART_MAIN);
     lv_obj_set_style_radius(bar_hor, 0, LV_PART_INDICATOR);
     lv_obj_set_style_bg_color(bar_hor, lv_color_hex(get_color(GRAY_C)), LV_PART_MAIN);
+    lv_obj_set_style_bg_color(bar_hor, lv_color_hex(get_color(BLACK_C)), LV_PART_INDICATOR);
     lv_obj_set_style_bg_opa(bar_hor, 255, LV_PART_MAIN);
 
     lv_obj_t * bar_remark = lv_label_create(parent);
