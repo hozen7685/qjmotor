@@ -47,11 +47,23 @@ int main(int argc, char const *argv[])
     lv_display_t * display = lv_windows_create_display(title, 1024, 600, 100, FALSE, FALSE);
     lv_windows_acquire_pointer_indev(display);
 #else
-    lv_display_t * disp = lv_sdl_window_create(1024, 600);
-    lv_sdl_window_set_title(disp, title);
-    lv_display_set_default(disp);
-    lv_indev_t * mouse = lv_sdl_mouse_create();
-    lv_indev_set_display(mouse, disp);
+  lv_group_set_default(lv_group_create());
+
+  lv_display_t * disp = lv_sdl_window_create(1024, 600);
+  lv_display_set_default(disp);
+
+  lv_indev_t * mouse = lv_sdl_mouse_create();
+  lv_indev_set_display(mouse, disp);
+  lv_indev_set_group(mouse, lv_group_get_default());
+
+  lv_indev_t * mousewheel = lv_sdl_mousewheel_create();
+  lv_indev_set_display(mousewheel, disp);
+  lv_indev_set_group(mousewheel, lv_group_get_default());
+
+  lv_indev_t * kb = lv_sdl_keyboard_create();
+  lv_indev_set_display(kb, disp);
+  lv_indev_set_group(kb, lv_group_get_default());
+
 #endif
     /*Output prompt information to the console, you can also use printf() to print directly*/
     LV_LOG_USER("LVGL initialization completed!");

@@ -3,6 +3,7 @@ set (CMAKE_C_COMPILER "gcc")
 project(qjmotor LANGUAGES C)
 set(CMAKE_SYSROOT "/")
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/lvgl)
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}/src)
 link_directories(${CMAKE_CURRENT_SOURCE_DIR}/lvgl/mac_lib)
 link_libraries(lvgl sdl2)
 

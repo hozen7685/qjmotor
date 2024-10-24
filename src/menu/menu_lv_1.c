@@ -5,16 +5,13 @@
 #include "../addons/bracket_rect.h"
 
 static lv_style_t style_sel;
+static lv_obj_t * roller;
 
 static void event_handler(lv_event_t * e)
 {
-    lv_event_code_t code = lv_event_get_code(e);
-    lv_obj_t * obj = lv_event_get_target(e);
-    if(code == LV_EVENT_VALUE_CHANGED) {
-        char buf[32];
-        lv_roller_get_selected_str(obj, buf, sizeof(buf));
-        LV_LOG_USER("Selected month: %s\n", buf);
-    }
+    lv_event_code_t evt_code = lv_event_get_code(e);
+    lv_key_t key_code = lv_indev_get_key(lv_indev_active());
+    LV_LOG_USER("EVEVT CODE [%d];KEY CODE [%d]\n", evt_code, key_code);
 }
 
 void menu_lv_1_page(void)
@@ -25,6 +22,7 @@ void menu_lv_1_page(void)
 
     lv_obj_t * obj = lv_obj_create(lv_screen_active());
     lv_obj_set_size(obj, 800, 480);
+    lv_obj_center(obj);
 
     top_info_bar(obj);
     lv_obj_t * rect_canvas = lv_obj_create(obj);
@@ -34,7 +32,7 @@ void menu_lv_1_page(void)
     rect_set_t inside = {712, 40, 3};
     bracket_rect(rect_canvas, &outside, &inside);
 
-    lv_obj_t * roller = lv_roller_create(obj);
+    roller = lv_roller_create(obj);
     lv_obj_set_style_text_color(roller, lv_color_hex(get_color(GRAY_C)), LV_PART_MAIN);
     lv_obj_add_style(roller, &style_sel, LV_PART_SELECTED);
     lv_obj_set_size(roller, lv_pct(80), lv_pct(30));
