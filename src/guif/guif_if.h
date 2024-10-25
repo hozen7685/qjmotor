@@ -28,9 +28,9 @@ typedef struct {
 extern void guif_init(void);
 extern void guif_msgproc(const frm_msg_t * msg);
 
-extern ret_t guif_scr_close(void);
+extern ret_t guif_scr_close(guif_scr_id_t dst_scr_id);
 extern ret_t guif_scr_change(guif_scr_id_t dst_scr_id);
-extern ret_t guif_scr_back(void);
+extern ret_t guif_scr_back(guif_scr_id_t dst_scr_id);
 
 extern guif_scr_obj_t *guif_preg_get_obj(guif_scr_id_t scr_id);
 

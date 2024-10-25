@@ -30,22 +30,30 @@
  * FUNCTIONS
  *
  *****************************************************************************/
+static lv_style_t style_sel;
+static lv_obj_t * roller;
+
 static void scr_menu_show(void * own)
 {
+    LV_LOG_USER("scr_menu_show");
     lv_screen_load_anim((lv_obj_t *)own, LV_SCR_LOAD_ANIM_MOVE_RIGHT, 500, 1000, false);
     load_top_info_bar((lv_obj_t *)own);
+    lv_obj_add_state(roller, LV_STATE_FOCUSED | LV_STATE_PRESSED);
 }
 
 static void scr_menu_load(void * own)
 {
+    LV_LOG_USER("scr_menu_load");
     lv_screen_load_anim((lv_obj_t *)own, LV_SCR_LOAD_ANIM_MOVE_LEFT, 500, 1000, false);
     load_top_info_bar((lv_obj_t *)own);
+    lv_obj_add_state(roller, LV_STATE_FOCUSED | LV_STATE_PRESSED);
 }
 
 static void scr_menu_unload(void * own)
 {
+    LV_LOG_USER("scr_menu_unload");
     unload_top_info_bar();
-    lv_obj_delete((lv_obj_t *)own);
+    lv_obj_delete_async((lv_obj_t *)own);
 }
 
 guif_scr_method_t scr_menu_method = {
@@ -56,9 +64,6 @@ guif_scr_obj_t scr_menu_obj = {
     SCR_MENU, NULL, &scr_menu_method
 };
 /***************************************************/
-static lv_style_t style_sel;
-static lv_obj_t * roller;
-
 static void event_handler(lv_event_t * e)
 {
     lv_event_code_t evt_code = lv_event_get_code(e);
@@ -66,7 +71,10 @@ static void event_handler(lv_event_t * e)
     switch (key_code)
     {
     case LV_KEY_ESC:
-        guif_scr_close();
+        if(LV_EVENT_DEFOCUSED == evt_code) {
+            guif_scr_back(SCR_MENU);
+            LV_LOG_USER("EVEVT CODE [%d];KEY CODE [%d]\n", evt_code, key_code);
+        }
         break;
     default:
         break;

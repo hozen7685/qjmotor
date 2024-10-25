@@ -50,18 +50,25 @@ ret_t guif_pcc_exec_change(const guif_pcm_req_t *req)
 ret_t guif_pcc_exec_back(const guif_pcm_req_t *req)
 {
     ret_t ret = RET_ERROR;
-    guif_scr_id_t scr_id;
+    guif_scr_id_t scr_id = req->scr_id;
     guif_scr_obj_t * scr_obj;
+    guif_layer_idx_t layer_idx;
     guif_scr_id_t top_scr_id;
     guif_scr_obj_t *top_scr_obj;
 
-    guif_plm_del_layer(guif_plm_get_layer_top());
+    if (RET_SUCCESS == guif_plm_get_layer_by(scr_id, &layer_idx)) {
+        scr_obj = guif_preg_get_obj(scr_id);
 
-    if (RET_SUCCESS == guif_plm_get_top(&top_scr_id)) {
-        top_scr_obj = guif_preg_get_obj(top_scr_id);
-        scr_show(top_scr_obj);
+        guif_plm_del_layer(layer_idx);
+
+        if (RET_SUCCESS == guif_plm_get_top(&top_scr_id)) {
+            top_scr_obj = guif_preg_get_obj(top_scr_id);
+            scr_show(top_scr_obj);
+        }
+        // scr_unload(scr_obj);
+        // scr_obj->lv_scr_obj = NULL;
+        ret = RET_SUCCESS;
     }
-    ret = RET_SUCCESS;
 
     return ret;
 }
@@ -69,14 +76,16 @@ ret_t guif_pcc_exec_back(const guif_pcm_req_t *req)
 ret_t guif_pcc_exec_delete(const guif_pcm_req_t *req)
 {
     ret_t ret = RET_ERROR;
-    guif_scr_id_t scr_id;
+    guif_scr_id_t scr_id = req->scr_id;
     guif_scr_obj_t * scr_obj;
+    guif_layer_idx_t layer_idx;
     guif_scr_id_t top_scr_id;
     guif_scr_obj_t *top_scr_obj;
 
-    if (RET_SUCCESS == guif_plm_get_top(&scr_id)) {
+    if (RET_SUCCESS == guif_plm_get_layer_by(scr_id, &layer_idx)) {
         scr_obj = guif_preg_get_obj(scr_id);
-        guif_plm_del_layer(guif_plm_get_layer_top());
+
+        guif_plm_del_layer(layer_idx);
 
         if (RET_SUCCESS == guif_plm_get_top(&top_scr_id)) {
             top_scr_obj = guif_preg_get_obj(top_scr_id);

@@ -33,20 +33,23 @@
  *****************************************************************************/
 static void scr_home_show(void * own)
 {
+    LV_LOG_USER("scr_home_show");
     lv_screen_load_anim((lv_obj_t *)own, LV_SCR_LOAD_ANIM_MOVE_RIGHT, 500, 1000, false);
     load_top_info_bar((lv_obj_t *)own);
 }
 
 static void scr_home_load(void * own)
 {
+    LV_LOG_USER("scr_home_load");
     lv_screen_load((lv_obj_t *)own);
     load_top_info_bar((lv_obj_t *)own);
 }
 
 static void scr_home_unload(void * own)
 {
+    LV_LOG_USER("scr_home_unload");
     unload_top_info_bar();
-    lv_obj_delete((lv_obj_t *)own);
+    lv_obj_delete_async((lv_obj_t *)own);
 }
 
 guif_scr_method_t scr_home_method = {
@@ -64,7 +67,10 @@ static void event_handler(lv_event_t * e)
     switch (key_code)
     {
     case LV_KEY_ENTER:
-        guif_scr_change(SCR_MENU);
+        if(LV_EVENT_SHORT_CLICKED == evt_code) {
+            guif_scr_change(SCR_MENU);
+            LV_LOG_USER("EVEVT CODE [%d];KEY CODE [%d]\n", evt_code, key_code);
+        }
         break;
     default:
         break;

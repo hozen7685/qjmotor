@@ -28,10 +28,6 @@ static void * lvgl_task_handler_thread(void *param)
   lv_indev_set_display(mouse, disp);
   lv_indev_set_group(mouse, lv_group_get_default());
 
-  lv_indev_t * mousewheel = lv_sdl_mousewheel_create();
-  lv_indev_set_display(mousewheel, disp);
-  lv_indev_set_group(mousewheel, lv_group_get_default());
-
   lv_indev_t * kb = lv_sdl_keyboard_create();
   lv_indev_set_display(kb, disp);
   lv_indev_set_group(kb, lv_group_get_default());

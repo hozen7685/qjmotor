@@ -38,21 +38,23 @@ ret_t guif_scr_change(guif_scr_id_t dst_scr_id)
     return RET_SUCCESS;
 }
 
-ret_t guif_scr_close(void)
+ret_t guif_scr_close(guif_scr_id_t dst_scr_id)
 {
     guif_pcm_req_t req;
     memset(&req, 0x00, sizeof(req));
     req.cmd = SCR_CMD_DELETE;
+    req.scr_id = dst_scr_id;
     guif_pcm_add(&req);
     guif_pcm_run();
     return RET_SUCCESS;
 }
 
-ret_t guif_scr_back(void)
+ret_t guif_scr_back(guif_scr_id_t dst_scr_id)
 {
     guif_pcm_req_t req;
     memset(&req, 0x00, sizeof(req));
     req.cmd = SCR_CMD_BACK;
+    req.scr_id = dst_scr_id;
     guif_pcm_add(&req);
     guif_pcm_run();
     return RET_SUCCESS;
