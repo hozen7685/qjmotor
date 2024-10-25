@@ -7,7 +7,8 @@ extern "C" {
 
 #include "lvgl.h"
 
-extern lv_obj_t * top_info_bar(lv_obj_t *parent);
+extern void load_top_info_bar(lv_obj_t * p);
+extern void unload_top_info_bar(void);
 
 #ifdef __cplusplus
 } /* extern "C" */

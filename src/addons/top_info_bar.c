@@ -12,10 +12,11 @@ static lv_obj_t *time_lable_min = NULL;
 static lv_obj_t *time_lable_mid = NULL;
 static lv_obj_t *time_lable_rear = NULL;
 static char time_mid_blink = 1;
+lv_obj_t * s_top_info_bar = NULL;
 
 static void update_time_cb(lv_timer_t *timer);
 
-lv_obj_t * top_info_bar(lv_obj_t *parent)
+static void top_info_bar(lv_obj_t *parent)
 {
 /* 位置、大小与布局 */
     lv_obj_t *bar = lv_obj_create(parent);
@@ -66,31 +67,31 @@ lv_obj_t * top_info_bar(lv_obj_t *parent)
     update_time_cb(NULL);
     //创建一个定时器，每秒更新一次
     lv_timer_create(update_time_cb, 1000, NULL);
-    return bar;
+    s_top_info_bar = bar;
 }
 
 void update_time_cb(lv_timer_t *timer) {
     time_t now;
-    struct tm *tm;
+    struct tm tm;
     // 获取当前本地时间
     now = time(NULL);
-    tm = localtime(&now);
+    localtime_r(&now, &tm);
 
     char time_str[4]; // 存放格式化后的时间字符串，HH:MM
     if(H12 == g_hour_rule) {
-        if(tm->tm_hour > 12) {
-            snprintf(time_str, sizeof(time_str), "%02d", tm->tm_hour - 12);
+        if(tm.tm_hour > 12) {
+            snprintf(time_str, sizeof(time_str) - 1, "%02d", tm.tm_hour - 12);
             lv_label_set_text(time_lable_rear, " PM");
         } else {
-            snprintf(time_str, sizeof(time_str), "%02d", tm->tm_hour);
+            snprintf(time_str, sizeof(time_str) - 1, "%02d", tm.tm_hour);
             lv_label_set_text(time_lable_rear, " AM");
         }
     } else {
-        snprintf(time_str, sizeof(time_str), "%02d", tm->tm_hour);
+        snprintf(time_str, sizeof(time_str) - 1, "%02d", tm.tm_hour);
     }
     // 更新时间标签的文本
     lv_label_set_text(time_lable_hour, time_str);
-    snprintf(time_str, sizeof(time_str), "%02d", tm->tm_min);
+    snprintf(time_str, sizeof(time_str) - 1, "%02d", tm.tm_min);
     lv_label_set_text(time_lable_min, time_str);
     if(time_mid_blink) {
         lv_label_set_text(time_lable_mid, ":");
@@ -100,3 +101,19 @@ void update_time_cb(lv_timer_t *timer) {
     time_mid_blink = 1 - time_mid_blink;
 }
 
+void load_top_info_bar(lv_obj_t * p)
+{
+    if(s_top_info_bar) {
+        lv_obj_set_parent(s_top_info_bar, p);
+    } else{
+        top_info_bar(p);
+    }
+}
+
+void unload_top_info_bar(void)
+{
+    if(s_top_info_bar) {
+        lv_obj_delete(s_top_info_bar);
+        s_top_info_bar = NULL;
+    }
+}
