@@ -17,7 +17,7 @@
 
 #include "lvgl.h"
 
-extern void * menu_screen(void *p);
+extern void * scr_menu_paint(void *p);
 
 
 #endif /* __MENU_SCR_H__ */

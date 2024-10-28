@@ -1,6 +1,6 @@
 //plm: Page layer Manager
-#include "guif_config.h"
 #include "guif_if.h"
+#include "guif_plm.h"
 
 typedef struct {
     guif_layer_idx_t tp;                                /* top pointer */

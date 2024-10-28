@@ -17,6 +17,6 @@
 
 #include "lvgl.h"
 
-extern void * home_screen(void * parent);
+extern void * scr_home_paint(void * parent);
 
 #endif /* __HOME_SCR_H__ */

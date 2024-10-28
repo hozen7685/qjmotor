@@ -23,7 +23,6 @@
 #include "../themes/color.h"
 #include "../widgets/bracket_rect.h"
 #include "../guif/guif_if.h"
-#include "../guif/guif_preg.h"
 #include "../addons/top_info_bar.h"
 /******************************************************************************
  *
@@ -36,28 +35,36 @@ static lv_obj_t * roller;
 static void scr_menu_show(void * own)
 {
     LV_LOG_USER("scr_menu_show");
-    lv_screen_load_anim((lv_obj_t *)own, LV_SCR_LOAD_ANIM_MOVE_RIGHT, 500, 1000, false);
+    lv_screen_load_anim((lv_obj_t *)own, LV_SCR_LOAD_ANIM_MOVE_RIGHT, 200, 200, true);
     load_top_info_bar((lv_obj_t *)own);
-    lv_obj_add_state(roller, LV_STATE_FOCUSED | LV_STATE_PRESSED);
+    lv_obj_update_layout((lv_obj_t *)own);
+    // lv_obj_set_state(roller, LV_STATE_DISABLED, false);
+}
+
+static void scr_menu_hide(void * own)
+{
+    LV_LOG_USER("scr_menu_hide");
+    unload_top_info_bar();
+    // lv_obj_set_state(roller, LV_STATE_DISABLED, true);
 }
 
 static void scr_menu_load(void * own)
 {
     LV_LOG_USER("scr_menu_load");
-    lv_screen_load_anim((lv_obj_t *)own, LV_SCR_LOAD_ANIM_MOVE_LEFT, 500, 1000, false);
+    lv_screen_load_anim((lv_obj_t *)own, LV_SCR_LOAD_ANIM_MOVE_LEFT, 200, 200, false);
     load_top_info_bar((lv_obj_t *)own);
-    lv_obj_add_state(roller, LV_STATE_FOCUSED | LV_STATE_PRESSED);
+    lv_obj_update_layout((lv_obj_t *)own);
+    // lv_obj_set_state(roller, LV_STATE_DISABLED, false);
 }
 
 static void scr_menu_unload(void * own)
 {
     LV_LOG_USER("scr_menu_unload");
-    unload_top_info_bar();
-    lv_obj_delete_async((lv_obj_t *)own);
+    lv_obj_clean(lv_screen_active());
 }
 
 guif_scr_method_t scr_menu_method = {
-    menu_screen, scr_menu_load, scr_menu_unload, scr_menu_show
+    scr_menu_paint, scr_menu_load, scr_menu_unload, scr_menu_show, scr_menu_hide
 };
 
 guif_scr_obj_t scr_menu_obj = {
@@ -72,18 +79,18 @@ static void event_handler(lv_event_t * e)
     {
     case LV_KEY_ESC:
         if(LV_EVENT_DEFOCUSED == evt_code) {
-            guif_scr_back(SCR_MENU);
+            guif_scr_close(SCR_MENU);
             LV_LOG_USER("EVEVT CODE [%d];KEY CODE [%d]\n", evt_code, key_code);
         }
         break;
     default:
         break;
     }
-    // LV_LOG_USER("EVEVT CODE [%d];KEY CODE [%d]\n", evt_code, key_code);
 }
 
-void * menu_screen(void *p)
+void * scr_menu_paint(void *p)
 {
+    LV_LOG_USER("scr_menu_paint");
     lv_style_init(&style_sel);
     lv_style_set_bg_color(&style_sel, lv_color_hex(get_color(WHITE_C)));
     lv_style_set_text_color(&style_sel, lv_color_hex(get_color(BLACK_C)));

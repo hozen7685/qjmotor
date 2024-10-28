@@ -2,7 +2,6 @@
 #define __GUIF_IF_H__
 
 #include "../frm/frm_msg.h"
-#include "guif_preg.h"
 #include "typedef.h"
 #include "lvgl.h"
 
@@ -10,13 +9,20 @@
 extern "C"
 {
 #endif /* __cplusplus */
+typedef enum {
+    SCR_HOME = 0,
+    SCR_MENU,
+    PGID_MAX
+} guif_scr_id_t;
+
+#define PGID_INVALID    PGID_MAX
 
 typedef struct {
     void * (*paint)(void *);
     void (*load)(void *);
     void (*unload)(void *);
-    // void (*hide)(void *);
     void (*show)(void *);
+    void (*hide)(void *);
 } guif_scr_method_t;
 
 typedef struct {
@@ -26,11 +32,10 @@ typedef struct {
 } guif_scr_obj_t;
 
 extern void guif_init(void);
-extern void guif_msgproc(const frm_msg_t * msg);
 
-extern ret_t guif_scr_close(guif_scr_id_t dst_scr_id);
-extern ret_t guif_scr_change(guif_scr_id_t dst_scr_id);
-extern ret_t guif_scr_back(guif_scr_id_t dst_scr_id);
+extern void guif_scr_close(guif_scr_id_t dst_scr_id);
+extern void guif_scr_change(guif_scr_id_t dst_scr_id);
+extern void guif_scr_back(guif_scr_id_t dst_scr_id);
 
 extern guif_scr_obj_t *guif_preg_get_obj(guif_scr_id_t scr_id);
 

@@ -1,6 +1,11 @@
 #ifndef __GUIF_PLM_H__
 #define __GUIF_PLM_H__
+
+#include "typedef.h"
+#include "guif_if.h"
 //plm: Page layer Manager
+#define GUIF_LAYER_STACK_SIZE    (10)
+typedef int32_t guif_layer_idx_t;
 
 extern void guif_plm_init(void);
 extern void guif_plm_clear(void);

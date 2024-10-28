@@ -31,11 +31,22 @@
  * FUNCTIONS
  *
  *****************************************************************************/
+lv_obj_t * catch_obj = NULL;
+
 static void scr_home_show(void * own)
 {
     LV_LOG_USER("scr_home_show");
-    lv_screen_load_anim((lv_obj_t *)own, LV_SCR_LOAD_ANIM_MOVE_RIGHT, 500, 1000, false);
+    lv_screen_load_anim((lv_obj_t *)own, LV_SCR_LOAD_ANIM_MOVE_RIGHT, 200, 200, true);
     load_top_info_bar((lv_obj_t *)own);
+    lv_obj_update_layout((lv_obj_t *)own);
+    // lv_obj_set_state(catch_obj, LV_STATE_DISABLED, false);
+}
+
+static void scr_home_hide(void * own)
+{
+    LV_LOG_USER("scr_home_hide");
+    unload_top_info_bar();
+    // lv_obj_set_state(catch_obj, LV_STATE_DISABLED, true);
 }
 
 static void scr_home_load(void * own)
@@ -43,17 +54,18 @@ static void scr_home_load(void * own)
     LV_LOG_USER("scr_home_load");
     lv_screen_load((lv_obj_t *)own);
     load_top_info_bar((lv_obj_t *)own);
+    lv_obj_update_layout((lv_obj_t *)own);
+    // lv_obj_set_state(catch_obj, LV_STATE_DISABLED, false);
 }
 
 static void scr_home_unload(void * own)
 {
     LV_LOG_USER("scr_home_unload");
-    unload_top_info_bar();
-    lv_obj_delete_async((lv_obj_t *)own);
+    lv_obj_clean(lv_screen_active());
 }
 
 guif_scr_method_t scr_home_method = {
-    home_screen, scr_home_load, scr_home_unload, scr_home_show
+    scr_home_paint, scr_home_load, scr_home_unload, scr_home_show, scr_home_hide
 };
 
 guif_scr_obj_t scr_home_obj = {
@@ -75,11 +87,11 @@ static void event_handler(lv_event_t * e)
     default:
         break;
     }
-    // LV_LOG_USER("EVEVT CODE [%d];KEY CODE [%d]\n", evt_code, key_code);
 }
 
-void * home_screen(void * parent)
+void * scr_home_paint(void * parent)
 {
+    LV_LOG_USER("scr_home_paint");
     lv_obj_t * obj = lv_obj_create(NULL);
     lv_obj_set_size(obj, 800, 480);
     lv_obj_set_style_pad_left(obj, 16, 0);
@@ -93,7 +105,7 @@ void * home_screen(void * parent)
 /* 水温 */
     water_scale(obj);
 /* 公里数 */
-    lv_obj_t * catch_obj = mileage_roller(obj);
+    catch_obj = mileage_roller(obj);
 /* 按键捕获 */
     lv_obj_add_event_cb(catch_obj, event_handler, LV_EVENT_ALL, NULL);
     return (void *)obj;

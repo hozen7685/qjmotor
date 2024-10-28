@@ -113,7 +113,8 @@ void load_top_info_bar(lv_obj_t * p)
 void unload_top_info_bar(void)
 {
     if(s_top_info_bar) {
-        lv_obj_delete_async(s_top_info_bar);
+        lv_obj_clean(s_top_info_bar);
+        lv_obj_delete(s_top_info_bar);
         s_top_info_bar = NULL;
     }
 }

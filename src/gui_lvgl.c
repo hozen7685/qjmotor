@@ -23,16 +23,16 @@ static void * lvgl_task_handler_thread(void *param)
 
   lv_display_t * disp = lv_sdl_window_create(800, 480);
   lv_display_set_default(disp);
-
+#if MOUSE
   lv_indev_t * mouse = lv_sdl_mouse_create();
   lv_indev_set_display(mouse, disp);
   lv_indev_set_group(mouse, lv_group_get_default());
-
+#endif /* MOUSE */
   lv_indev_t * kb = lv_sdl_keyboard_create();
   lv_indev_set_display(kb, disp);
   lv_indev_set_group(kb, lv_group_get_default());
 
-#endif
+#endif /* WINDOWS */
     /*Output prompt information to the console, you can also use printf() to print directly*/
     LV_LOG_USER("LVGL initialization completed!");
 
@@ -51,12 +51,15 @@ static void * lvgl_task_handler_thread(void *param)
 
 void gui_lvgl_start(void)
 {
-    // if(0 != pthread_create(&lvgl_tid, NULL, lvgl_task_handler_thread, NULL)) {
-    //     printf("create lvgl thread failed.\n");
-    // } else{
-    //     pthread_detach(lvgl_tid);
-    // }
+#if LVGL_THREAD
+    if(0 != pthread_create(&lvgl_tid, NULL, lvgl_task_handler_thread, NULL)) {
+        printf("create lvgl thread failed.\n");
+    } else{
+        pthread_detach(lvgl_tid);
+    }
+#else
     lvgl_task_handler_thread(NULL);
+#endif /* LVGL_THREAD */
 }
 
 /* End Of File */
