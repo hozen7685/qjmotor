@@ -22,7 +22,7 @@
 #include "../themes/themes.h"
 #include "../themes/color.h"
 #include "../widgets/bracket_rect.h"
-#include "../guif/guif_if.h"
+#include "../gui/gui_guider.h"
 #include "../addons/top_info_bar.h"
 /******************************************************************************
  *
@@ -31,13 +31,14 @@
  *****************************************************************************/
 static lv_style_t style_sel;
 static lv_obj_t * roller;
+static void * scr_menu_paint(void *p);
 
+#if USE_GUIF
 static void scr_menu_show(void * own)
 {
     LV_LOG_USER("scr_menu_show");
     lv_screen_load_anim((lv_obj_t *)own, LV_SCR_LOAD_ANIM_MOVE_RIGHT, 200, 200, true);
     load_top_info_bar((lv_obj_t *)own);
-    lv_obj_update_layout((lv_obj_t *)own);
     // lv_obj_set_state(roller, LV_STATE_DISABLED, false);
 }
 
@@ -51,9 +52,8 @@ static void scr_menu_hide(void * own)
 static void scr_menu_load(void * own)
 {
     LV_LOG_USER("scr_menu_load");
-    lv_screen_load_anim((lv_obj_t *)own, LV_SCR_LOAD_ANIM_MOVE_LEFT, 200, 200, false);
+    lv_screen_load_anim((lv_obj_t *)own, LV_SCR_LOAD_ANIM_MOVE_LEFT, 200, 200, true);
     load_top_info_bar((lv_obj_t *)own);
-    lv_obj_update_layout((lv_obj_t *)own);
     // lv_obj_set_state(roller, LV_STATE_DISABLED, false);
 }
 
@@ -70,6 +70,9 @@ guif_scr_method_t scr_menu_method = {
 guif_scr_obj_t scr_menu_obj = {
     SCR_MENU, NULL, &scr_menu_method
 };
+#endif /* USE_GUIF */
+
+scr_data_t scr_menu_data = {NULL, true, scr_menu_paint};
 /***************************************************/
 static void event_handler(lv_event_t * e)
 {
@@ -79,7 +82,6 @@ static void event_handler(lv_event_t * e)
     {
     case LV_KEY_ESC:
         if(LV_EVENT_DEFOCUSED == evt_code) {
-            guif_scr_close(SCR_MENU);
             LV_LOG_USER("EVEVT CODE [%d];KEY CODE [%d]\n", evt_code, key_code);
         }
         break;

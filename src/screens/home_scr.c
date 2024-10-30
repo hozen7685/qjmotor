@@ -19,7 +19,7 @@
  *
  *****************************************************************************/
 #include "home_scr.h"
-#include "../guif/guif_if.h"
+#include "../gui/gui_guider.h"
 #include "../widgets/speed_info.h"
 #include "../widgets/rpm_scale.h"
 #include "../widgets/gasoline_scale.h"
@@ -33,12 +33,14 @@
  *****************************************************************************/
 lv_obj_t * catch_obj = NULL;
 
+static void * scr_home_paint(void * parent);
+
+#if USE_GUIF
 static void scr_home_show(void * own)
 {
     LV_LOG_USER("scr_home_show");
     lv_screen_load_anim((lv_obj_t *)own, LV_SCR_LOAD_ANIM_MOVE_RIGHT, 200, 200, true);
     load_top_info_bar((lv_obj_t *)own);
-    lv_obj_update_layout((lv_obj_t *)own);
     // lv_obj_set_state(catch_obj, LV_STATE_DISABLED, false);
 }
 
@@ -54,7 +56,6 @@ static void scr_home_load(void * own)
     LV_LOG_USER("scr_home_load");
     lv_screen_load((lv_obj_t *)own);
     load_top_info_bar((lv_obj_t *)own);
-    lv_obj_update_layout((lv_obj_t *)own);
     // lv_obj_set_state(catch_obj, LV_STATE_DISABLED, false);
 }
 
@@ -71,6 +72,9 @@ guif_scr_method_t scr_home_method = {
 guif_scr_obj_t scr_home_obj = {
     SCR_HOME, NULL, &scr_home_method
 };
+#endif /* USE_GUIF */
+
+scr_data_t scr_home_data = {NULL, true, scr_home_paint};
 /***********************************************/
 static void event_handler(lv_event_t * e)
 {
@@ -80,7 +84,6 @@ static void event_handler(lv_event_t * e)
     {
     case LV_KEY_ENTER:
         if(LV_EVENT_SHORT_CLICKED == evt_code) {
-            guif_scr_change(SCR_MENU);
             LV_LOG_USER("EVEVT CODE [%d];KEY CODE [%d]\n", evt_code, key_code);
         }
         break;

@@ -1,6 +1,6 @@
 #include "lvgl.h"
 #include "gui_lvgl.h"
-#include "guif/guif_if.h"
+#include "gui/gui_guider.h"
 #include "themes/themes.h"
 #include <pthread.h>
 #include <unistd.h>
@@ -39,7 +39,7 @@ static void * lvgl_task_handler_thread(void *param)
     set_theme(BRIGHT);
     set_theme_lang(LANG_EN);
     set_hour_rule(H12);
-    guif_scr_change(SCR_HOME);
+    // guif_scr_change(SCR_HOME);
     while(1) {
         /* Periodically call the lv_task handler.
          * It could be done in a timer interrupt or an OS task too.*/
