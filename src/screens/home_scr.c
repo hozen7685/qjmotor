@@ -18,7 +18,6 @@
  * INCLUDES
  *
  *****************************************************************************/
-#include "home_scr.h"
 #include "../gui/gui_guider.h"
 #include "../widgets/speed_info.h"
 #include "../widgets/rpm_scale.h"

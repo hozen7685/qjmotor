@@ -13,7 +13,6 @@ static void * lvgl_task_handler_thread(void *param);
 static void * lvgl_task_handler_thread(void *param)
 {
     lv_init();
-    guif_init();
 #if WINDOWS
     /*Initialize the HAL for LVGL*/
     lv_display_t * display = lv_windows_create_display(title, 1024, 600, 100, FALSE, FALSE);

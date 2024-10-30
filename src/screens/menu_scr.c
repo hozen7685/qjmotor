@@ -18,7 +18,6 @@
  * INCLUDES
  *
  *****************************************************************************/
-#include "menu_scr.h"
 #include "../themes/themes.h"
 #include "../themes/color.h"
 #include "../widgets/bracket_rect.h"
