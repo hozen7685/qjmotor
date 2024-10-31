@@ -27,7 +27,7 @@ typedef struct scr_data
 {
     lv_obj_t *scr_obj;
 	bool scr_del;
-    void* (*paint)(void *);
+    lv_obj_t * (*paint)(lv_obj_t *);
 }scr_data_t;
 
 

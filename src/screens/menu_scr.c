@@ -18,11 +18,10 @@
  * INCLUDES
  *
  *****************************************************************************/
-#include "../themes/themes.h"
-#include "../themes/color.h"
-#include "../widgets/bracket_rect.h"
 #include "../gui/gui_guider.h"
-#include "../addons/top_info_bar.h"
+#include "../themes/themes.h"
+#include "../widgets/bracket_rect.h"
+#include "../widgets/top_info_bar.h"
 /******************************************************************************
  *
  * FUNCTIONS
@@ -30,7 +29,7 @@
  *****************************************************************************/
 static lv_style_t style_sel;
 static lv_obj_t * roller;
-static void * scr_menu_paint(void *p);
+static lv_obj_t * scr_menu_paint(lv_obj_t *p);
 
 #if USE_GUIF
 static void scr_menu_show(void * own)
@@ -89,7 +88,7 @@ static void event_handler(lv_event_t * e)
     }
 }
 
-void * scr_menu_paint(void *p)
+lv_obj_t * scr_menu_paint(lv_obj_t *p)
 {
     LV_LOG_USER("scr_menu_paint");
     lv_style_init(&style_sel);
@@ -120,6 +119,6 @@ void * scr_menu_paint(void *p)
     lv_obj_set_size(foot_label, lv_pct(100), lv_pct(8));
     lv_obj_align(foot_label, LV_ALIGN_BOTTOM_MID, 0, 0);
     lv_label_set_text(foot_label, get_text_byid(T_MENU_FOOT));
-    return (void *)obj;
+    return obj;
 }
 /* - End Of File - */

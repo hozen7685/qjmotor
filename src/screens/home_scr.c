@@ -24,7 +24,7 @@
 #include "../widgets/gasoline_scale.h"
 #include "../widgets/water_scale.h"
 #include "../widgets/mileage_roller.h"
-#include "../addons/top_info_bar.h"
+#include "../widgets/top_info_bar.h"
 /******************************************************************************
  *
  * FUNCTIONS
@@ -32,7 +32,7 @@
  *****************************************************************************/
 lv_obj_t * catch_obj = NULL;
 
-static void * scr_home_paint(void * parent);
+static lv_obj_t * scr_home_paint(lv_obj_t * parent);
 
 #if USE_GUIF
 static void scr_home_show(void * own)
@@ -91,7 +91,7 @@ static void event_handler(lv_event_t * e)
     }
 }
 
-void * scr_home_paint(void * parent)
+lv_obj_t * scr_home_paint(lv_obj_t * parent)
 {
     LV_LOG_USER("scr_home_paint");
     lv_obj_t * obj = lv_obj_create(NULL);
@@ -110,7 +110,7 @@ void * scr_home_paint(void * parent)
     catch_obj = mileage_roller(obj);
 /* 按键捕获 */
     lv_obj_add_event_cb(catch_obj, event_handler, LV_EVENT_ALL, NULL);
-    return (void *)obj;
+    return obj;
 }
 
 /* - End Of File - */
