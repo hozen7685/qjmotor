@@ -7,7 +7,7 @@
 /*********************
  *      INCLUDES
  *********************/
-#include "gui_lvgl.h"
+#include "gui/gui_lvgl.h"
 
 int main(int argc, char const *argv[])
 {

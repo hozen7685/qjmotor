@@ -1,12 +1,11 @@
 #include "lvgl.h"
 #include "gui_lvgl.h"
-#include "gui/gui_guider.h"
+#include "gui_guider.h"
 #include "themes/themes.h"
 #include <pthread.h>
 #include <unistd.h>
 #include <stdio.h>
 
-static const char * title = "QJMOTOR";
 static pthread_t lvgl_tid;
 static void * lvgl_task_handler_thread(void *param);
 
