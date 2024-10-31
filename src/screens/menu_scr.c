@@ -80,6 +80,9 @@ static void event_handler(lv_event_t * e)
     {
     case LV_KEY_ESC:
         if(LV_EVENT_DEFOCUSED == evt_code) {
+            unload_top_info_bar();
+            gui_load_scr_animation(SCR_HOME, &scr_menu_data,
+             LV_SCR_LOAD_ANIM_MOVE_RIGHT, 200, 200, true, true);
             LV_LOG_USER("EVEVT CODE [%d];KEY CODE [%d]\n", evt_code, key_code);
         }
         break;
@@ -119,6 +122,7 @@ lv_obj_t * scr_menu_paint(lv_obj_t *p)
     lv_obj_set_size(foot_label, lv_pct(100), lv_pct(8));
     lv_obj_align(foot_label, LV_ALIGN_BOTTOM_MID, 0, 0);
     lv_label_set_text(foot_label, get_text_byid(T_MENU_FOOT));
+    load_top_info_bar(obj);
     return obj;
 }
 /* - End Of File - */

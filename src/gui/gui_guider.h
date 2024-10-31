@@ -33,5 +33,5 @@ typedef struct scr_data
 
 void gui_load_scr_animation(scr_id_t new_scr, scr_data_t * old_scr,
     lv_scr_load_anim_t anim_type, uint32_t time, uint32_t delay, bool is_clean, bool auto_del);
-
+void gui_setup(void);
 #endif /* __GUI_GUIDER_H__ */

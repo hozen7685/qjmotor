@@ -37,7 +37,7 @@ static void * lvgl_task_handler_thread(void *param)
     set_theme(BRIGHT);
     set_theme_lang(LANG_EN);
     set_hour_rule(H12);
-    // guif_scr_change(SCR_HOME);
+    gui_setup();
     while(1) {
         /* Periodically call the lv_task handler.
          * It could be done in a timer interrupt or an OS task too.*/

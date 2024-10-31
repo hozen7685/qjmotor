@@ -52,4 +52,10 @@ void gui_load_scr_animation(scr_id_t new_scr, scr_data_t * old_scr,
     lv_screen_load_anim(new_scr_data->scr_obj, anim_type, time, delay, auto_del);
     old_scr->scr_del = auto_del;
 }
+
+void gui_setup(void)
+{
+    scr_home_data.scr_obj = scr_home_data.paint(NULL);
+    lv_screen_load(scr_home_data.scr_obj);
+}
 /* - End Of File - */
