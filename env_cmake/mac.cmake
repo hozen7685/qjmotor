@@ -1,5 +1,5 @@
 set (CMAKE_C_COMPILER "/usr/local/Cellar/gcc/14.2.0_1/bin/gcc-14")
 set(CMAKE_SYSROOT "/")
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/lvgl ${CMAKE_CURRENT_SOURCE_DIR}/src /usr/local/include)
-link_directories(${CMAKE_CURRENT_SOURCE_DIR}/lvgl/mac_lib /usr/local/lib)
+link_directories(${CMAKE_CURRENT_SOURCE_DIR}/lvgl/lib /usr/local/lib)
 link_libraries(lvgl SDL2)

@@ -1,4 +1,5 @@
 #include "lvgl.h"
+#include "config.h"
 #include "gui_lvgl.h"
 #include "gui_guider.h"
 #include "themes/themes.h"
@@ -14,8 +15,9 @@ static void * lvgl_task_handler_thread(void *param)
     lv_init();
 #if WINDOWS
     /*Initialize the HAL for LVGL*/
-    lv_display_t * display = lv_windows_create_display(title, 1024, 600, 100, FALSE, FALSE);
-    lv_windows_acquire_pointer_indev(display);
+    static const wchar_t * title = L"QJMOTOR";
+    lv_display_t * display = lv_windows_create_display(title, 800, 480, 100, false, false);
+    lv_windows_acquire_keypad_indev(display);
 #else
   lv_group_set_default(lv_group_create());
 

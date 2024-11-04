@@ -1,6 +1,8 @@
 cmake_minimum_required(VERSION 3.30)
 if(MAC)
 include(${CMAKE_CURRENT_LIST_DIR}/env_cmake/mac.cmake)
+else()
+include(${CMAKE_CURRENT_LIST_DIR}/env_cmake/win.cmake)
 endif()
 project(qjmotor LANGUAGES C)
 

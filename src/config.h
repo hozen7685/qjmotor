@@ -15,7 +15,7 @@
 #ifndef __CONFIG_H__
 #define __CONFIG_H__
 
-#define WINDOWS 0
+#define WINDOWS 1
 #define USE_MSG 0
 
 #endif /* __CONFIG_H__ */

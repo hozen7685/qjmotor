@@ -72,26 +72,26 @@ static void top_info_bar(lv_obj_t *parent)
 
 void update_time_cb(lv_timer_t *timer) {
     time_t now;
-    struct tm tm;
+    struct tm *tm;
     // 获取当前本地时间
     now = time(NULL);
-    localtime_r(&now, &tm);
+    tm = localtime(&now);
 
     char time_str[4]; // 存放格式化后的时间字符串，HH:MM
     if(H12 == g_hour_rule) {
-        if(tm.tm_hour > 12) {
-            snprintf(time_str, sizeof(time_str) - 1, "%02d", tm.tm_hour - 12);
+        if(tm->tm_hour > 12) {
+            snprintf(time_str, sizeof(time_str) - 1, "%02d", tm->tm_hour - 12);
             lv_label_set_text(time_lable_rear, " PM");
         } else {
-            snprintf(time_str, sizeof(time_str) - 1, "%02d", tm.tm_hour);
+            snprintf(time_str, sizeof(time_str) - 1, "%02d", tm->tm_hour);
             lv_label_set_text(time_lable_rear, " AM");
         }
     } else {
-        snprintf(time_str, sizeof(time_str) - 1, "%02d", tm.tm_hour);
+        snprintf(time_str, sizeof(time_str) - 1, "%02d", tm->tm_hour);
     }
     // 更新时间标签的文本
     lv_label_set_text(time_lable_hour, time_str);
-    snprintf(time_str, sizeof(time_str) - 1, "%02d", tm.tm_min);
+    snprintf(time_str, sizeof(time_str) - 1, "%02d", tm->tm_min);
     lv_label_set_text(time_lable_min, time_str);
     if(time_mid_blink) {
         lv_label_set_text(time_lable_mid, ":");
