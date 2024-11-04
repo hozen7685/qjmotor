@@ -34,45 +34,6 @@ lv_obj_t * roller_obj = NULL;
 
 static lv_obj_t * scr_home_paint(lv_obj_t * parent);
 
-#if USE_GUIF
-static void scr_home_show(void * own)
-{
-    LV_LOG_USER("scr_home_show");
-    lv_screen_load_anim((lv_obj_t *)own, LV_SCR_LOAD_ANIM_MOVE_RIGHT, 200, 200, true);
-    load_top_info_bar((lv_obj_t *)own);
-    // lv_obj_set_state(roller_obj, LV_STATE_DISABLED, false);
-}
-
-static void scr_home_hide(void * own)
-{
-    LV_LOG_USER("scr_home_hide");
-    unload_top_info_bar();
-    // lv_obj_set_state(roller_obj, LV_STATE_DISABLED, true);
-}
-
-static void scr_home_load(void * own)
-{
-    LV_LOG_USER("scr_home_load");
-    lv_screen_load((lv_obj_t *)own);
-    load_top_info_bar((lv_obj_t *)own);
-    // lv_obj_set_state(roller_obj, LV_STATE_DISABLED, false);
-}
-
-static void scr_home_unload(void * own)
-{
-    LV_LOG_USER("scr_home_unload");
-    lv_obj_clean(lv_screen_active());
-}
-
-guif_scr_method_t scr_home_method = {
-    scr_home_paint, scr_home_load, scr_home_unload, scr_home_show, scr_home_hide
-};
-
-guif_scr_obj_t scr_home_obj = {
-    SCR_HOME, NULL, &scr_home_method
-};
-#endif /* USE_GUIF */
-
 scr_data_t scr_home_data = {NULL, true, scr_home_paint};
 /***********************************************/
 static void event_handler(lv_event_t * e)
@@ -85,7 +46,7 @@ static void event_handler(lv_event_t * e)
         if(LV_EVENT_SHORT_CLICKED == evt_code) {
             unload_top_info_bar();
             gui_load_scr_animation(SCR_MENU, &scr_home_data,
-             LV_SCR_LOAD_ANIM_MOVE_RIGHT, 200, 200, true, true);
+             LV_SCR_LOAD_ANIM_MOVE_LEFT, 200, 200, true, true);
             LV_LOG_USER("EVEVT CODE [%d];KEY CODE [%d]\n", evt_code, key_code);
         }
         break;
@@ -96,7 +57,7 @@ static void event_handler(lv_event_t * e)
 
 lv_obj_t * scr_home_paint(lv_obj_t * parent)
 {
-    LV_LOG_USER("scr_home_paint");
+    LV_LOG_USER("paint");
     lv_obj_t * obj = lv_obj_create(NULL);
     lv_obj_set_size(obj, 800, 480);
     lv_obj_set_style_pad_left(obj, 16, 0);

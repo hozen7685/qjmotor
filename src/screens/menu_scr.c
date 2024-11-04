@@ -31,45 +31,6 @@ static lv_style_t style_sel;
 static lv_obj_t * roller;
 static lv_obj_t * scr_menu_paint(lv_obj_t *p);
 
-#if USE_GUIF
-static void scr_menu_show(void * own)
-{
-    LV_LOG_USER("scr_menu_show");
-    lv_screen_load_anim((lv_obj_t *)own, LV_SCR_LOAD_ANIM_MOVE_RIGHT, 200, 200, true);
-    load_top_info_bar((lv_obj_t *)own);
-    // lv_obj_set_state(roller, LV_STATE_DISABLED, false);
-}
-
-static void scr_menu_hide(void * own)
-{
-    LV_LOG_USER("scr_menu_hide");
-    unload_top_info_bar();
-    // lv_obj_set_state(roller, LV_STATE_DISABLED, true);
-}
-
-static void scr_menu_load(void * own)
-{
-    LV_LOG_USER("scr_menu_load");
-    lv_screen_load_anim((lv_obj_t *)own, LV_SCR_LOAD_ANIM_MOVE_LEFT, 200, 200, true);
-    load_top_info_bar((lv_obj_t *)own);
-    // lv_obj_set_state(roller, LV_STATE_DISABLED, false);
-}
-
-static void scr_menu_unload(void * own)
-{
-    LV_LOG_USER("scr_menu_unload");
-    lv_obj_clean(lv_screen_active());
-}
-
-guif_scr_method_t scr_menu_method = {
-    scr_menu_paint, scr_menu_load, scr_menu_unload, scr_menu_show, scr_menu_hide
-};
-
-guif_scr_obj_t scr_menu_obj = {
-    SCR_MENU, NULL, &scr_menu_method
-};
-#endif /* USE_GUIF */
-
 scr_data_t scr_menu_data = {NULL, true, scr_menu_paint};
 /***************************************************/
 static void event_handler(lv_event_t * e)
@@ -93,7 +54,7 @@ static void event_handler(lv_event_t * e)
 
 lv_obj_t * scr_menu_paint(lv_obj_t *p)
 {
-    LV_LOG_USER("scr_menu_paint");
+    LV_LOG_USER("paint");
     lv_style_init(&style_sel);
     lv_style_set_bg_color(&style_sel, lv_color_hex(get_color(WHITE_C)));
     lv_style_set_text_color(&style_sel, lv_color_hex(get_color(BLACK_C)));
